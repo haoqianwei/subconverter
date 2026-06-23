@@ -21,10 +21,8 @@ jobs:
             os: ubuntu-latest
           - platform: linux/386
             os: ubuntu-latest
-          - platform: linux/arm/v7
-            os: ubuntu-latest
           - platform: linux/arm64
-            os: ubuntu-latest
+            os: ubuntu-24.04-arm
     runs-on: ${{ matrix.os }}
     name: Build ${{ matrix.platform }} Image
     steps:
