@@ -599,10 +599,13 @@ proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGroupCo
                     singleproxy["password"] = x.Password;
                 }
                 if (!x.Fingerprint.empty()) {
-                    singleproxy["fingerprint"] = x.Fingerprint;
+                    singleproxy["client-fingerprint"] = x.Fingerprint;
                 }
                 if (!udp.is_undef()) {
                     singleproxy["udp"] = udp.get();
+                }
+                if (!tfo.is_undef()) {
+                    singleproxy["tfo"] = tfo.get();
                 }
                 if (!x.SNI.empty()) {
                     singleproxy["sni"] = x.SNI;
@@ -614,6 +617,12 @@ proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGroupCo
                         singleproxy["alpn"].push_back(item);
                     }
                 }
+                if (x.IdleSessionCheckIntervalSet)
+                    singleproxy["idle-session-check-interval"] = x.IdleSessionCheckInterval;
+                if (x.IdleSessionTimeoutSet)
+                    singleproxy["idle-session-timeout"] = x.IdleSessionTimeout;
+                if (x.MinIdleSessionSet)
+                    singleproxy["min-idle-session"] = x.MinIdleSession;
                 break;
             case ProxyType::Mieru:
                 singleproxy["type"] = "mieru";

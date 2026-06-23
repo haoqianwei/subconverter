@@ -92,6 +92,9 @@ struct Proxy {
     uint16_t IdleSessionCheckInterval=30;
     uint16_t IdleSessionTimeout=30;
     uint16_t MinIdleSession=0;
+    bool IdleSessionCheckIntervalSet=false;
+    bool IdleSessionTimeoutSet=false;
+    bool MinIdleSessionSet=false;
     String TLSStr;
     bool TLSSecure = false;
 
