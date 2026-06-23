@@ -1708,10 +1708,16 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes) {
                         alpns.push_back(alpn2);
                     }
                 }
-                singleproxy["fingerprint"] >>= fingerprint;
+                singleproxy["client-fingerprint"] >>= fingerprint;
                 anyTlSConstruct(node, ANYTLS_DEFAULT_GROUP, ps, port, password, server, alpns, fingerprint, sni,
                                 udp,
-                                tribool(), scv, tribool(), underlying_proxy, 30, 30, 0);
+                                tribool(), scv, tribool(), underlying_proxy,
+                                singleproxy["idle-session-check-interval"].IsDefined() ? singleproxy["idle-session-check-interval"].as<uint16_t>() : 30,
+                                singleproxy["idle-session-timeout"].IsDefined() ? singleproxy["idle-session-timeout"].as<uint16_t>() : 30,
+                                singleproxy["min-idle-session"].IsDefined() ? singleproxy["min-idle-session"].as<uint16_t>() : 0);
+                node.IdleSessionCheckIntervalSet = singleproxy["idle-session-check-interval"].IsDefined();
+                node.IdleSessionTimeoutSet = singleproxy["idle-session-timeout"].IsDefined();
+                node.MinIdleSessionSet = singleproxy["min-idle-session"].IsDefined();
                 break;
             case "mieru"_hash:
                 group = MIERU_DEFAULT_GROUP;
