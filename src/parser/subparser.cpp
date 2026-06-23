@@ -1328,6 +1328,7 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes) {
                 continue;
         udp = safe_as<std::string>(singleproxy["udp"]);
         scv = safe_as<std::string>(singleproxy["skip-cert-verify"]);
+        tfo = safe_as<std::string>(singleproxy["tfo"]);
         singleproxy["dialer-proxy"] >>= underlying_proxy;
         switch (hash_(proxytype)) {
             case "vmess"_hash:
